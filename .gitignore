@@ -1,3 +1,6 @@
 __pycache__/
 hsiViewer/__pycache__/
 UPWINS_Microscene.zip
+.devcontainer/
+temp/
+data/

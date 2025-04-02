@@ -14,5 +14,8 @@ statsmodels
 plotly
 ipython
 hyperspectral_gta_data
+ipykernel
+python-dotenv
+pymongo
 
 #install with:  pip install -r requirements.txt
