@@ -4,3 +4,4 @@ UPWINS_Microscene.zip
 .devcontainer/
 temp/
 data/
+*.env
