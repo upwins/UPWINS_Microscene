@@ -1,15 +1,23 @@
 # Cleanup plan — `research_UPWINS_Microscene` → `upwins-microscene-preprocessing`
 
-> **Proposal for owner review. Nothing has been built.** This document is the plan
-> only; no new repo, branch, or commit exists in `upwins-microscene-preprocessing`.
-> Written 2026-07-31 against `research_UPWINS_Microscene` @ `6032500` (`main`).
+> **Nothing has been built.** No commit exists in `upwins-microscene-preprocessing`
+> on any branch. Written 2026-07-31 against `research_UPWINS_Microscene` @ `6032500`
+> (`main`); reviewed and approved the same day.
 >
-> **Updated 2026-07-31 with the owner's answers.** Decisions **1–4** in §6 are
-> now **answered**, and §6 is renumbered to match the owner's numbering (1 nothing
-> ships, 2 vectorize only and flag, 3 `.img` plus the pair convention, 4 delete the
-> WIP section). Decision 2 resolved to *vectorize only*, defined precisely in **§6d**
-> so it is not read more broadly later. The `LICENSE` copyright line is confirmed
-> flagged-but-unchanged (§6b); the six items in §6c stand on their stated defaults.
+> **✅ APPROVED AND FINAL — 2026-07-31. This document is cleared for implementation.**
+> Nothing has been built yet; the target repo is still empty.
+>
+> - **§6a decisions 1–4 answered** — 1 nothing ships · 2 vectorize only and flag
+>   (defined precisely in **§6d**) · 3 `.img` plus the `image`/`image_hdr` pair
+>   convention · 4 delete notebook 3's WIP metrics section.
+> - **§6b** — the `LICENSE` copyright line is flagged and left unchanged.
+> - **§6c** — the six remaining items proceed on their stated defaults.
+> - **§D — all eight rows approved.** Every change that alters an output is
+>   authorized, with a binding per-row resolution. **§D is also the boundary: any
+>   output change not listed there is out of scope and must be brought back for
+>   approval, not implemented.**
+>
+> **If you are the implementing session: read §0 first, then §D, then §5.**
 
 **Goal:** produce a third client-ready deliverable, `upwins-microscene-preprocessing`,
 that sits alongside `upwins-hsi-preprocessing` and `upwins-veg-classifier` and looks,
@@ -31,9 +39,10 @@ repo already fixed and this repo still carries. None of this is hard to fix; it 
 the same list of moves the other two repos already made. The one science question
 (§B4) has been answered — *vectorize only, change no values* (§6a, decision 2).
 
-**Everything in this plan that changes an output is enumerated in §D**, including the
-four items that go beyond that broadcasting change and the list of things deliberately
-left alone. Nothing in §D is implemented without a per-row go-ahead.
+**Everything in this plan that changes an output is enumerated in §D** — the four
+items beyond that broadcasting change, the two fail-loudly additions, two flagged for
+awareness, and the list of things deliberately left alone. All are approved; §D's
+resolutions are binding, and it is a closed list.
 
 ---
 
@@ -195,9 +204,10 @@ class at that exact path. Renaming here silently breaks both.
   Do not re-litigate any of them, and do not invent a replacement for the `LICENSE`
   copyright line.
 - **§D is the gate on anything that changes a number, a figure, a filename, or which
-  file is opened.** D4 and D6 are approved; D1, D2, D3 and D5 need a per-row owner yes
-  before they land; D7 and D8 are flagged for awareness. If implementing a phase would
-  change an output not listed in §D, stop and add it to §D instead of proceeding.
+  file is opened. All eight rows are approved** — implement each exactly as its Status
+  column states, no more. **If implementing a phase would change an output not listed
+  in §D, stop and bring it back for approval rather than proceeding.** That boundary is
+  the point of the register.
 
 ---
 
@@ -243,7 +253,7 @@ Total tree ≈ 34 MB working, 53 MB of git history. Deliverable content is ≈ 1
 | `test_baccharis_ham_with_backgrounds.pkl` | 5.8 MB | **Drop** — a committed ROI pickle (`hsiViewer.hsi_viewer_ROI.ROIs_class`); nothing ships |
 | `requirements.txt` | | **Rewrite** — pin, drop the 8 unused packages (§C1) |
 | `README.md` | 2 lines | **Rewrite** to the companion shape |
-| `LICENSE` | | **Keep MIT** — but the copyright line differs from both companions (§C7, owner decision) |
+| `LICENSE` | | **Copy verbatim.** MIT; its copyright line differs from both companions and stays as-is — flagged, not harmonized (§C7, §6b) |
 | `.gitignore` | | **Rewrite** — it currently ignores `.devcontainer/` (§C8) |
 
 ---
@@ -292,7 +302,7 @@ from the A/B/C findings above.
 | **C4** | **Notebook filenames** carry spaces, two typos (`Mircoscene`, `preprocesing`) and a literal ` copy`. The companions use `NN_verb_noun.ipynb`. |
 | **C5** | **~9 MB of committed cell outputs and pasted screenshots.** nb 3 alone carries 2.8 MB of outputs (27 PNGs); nb 2 carries 1.3 MB of outputs and 1.3 MB of attachments. Four markdown cells in nb 1 are *only* a pasted hsiViewer screenshot ("copy-paste from hsi_viewer") standing in for narration. |
 | **C6** | **The same copy-pasted import block in all three notebooks**, including imports each does not use (`copy`, `pickle`, `importlib`, `hsv`, `hvl`, and `PCA` in nb 3 — imported, never called). The companions cleared this (their C5). |
-| **C7** | **`LICENSE` says `Copyright (c) 2025 William F Basener`;** both companions say `Copyright (c) 2025 upwins`. Owner decision — do not change unilaterally. |
+| **C7** | **`LICENSE` says `Copyright (c) 2025 William F Basener`;** both companions say `Copyright (c) 2025 upwins`. **Resolved (§6b): copy verbatim, flag the divergence in the phase-8 audit doc, do not harmonize and do not invent a replacement.** |
 | **C8** | **`.gitignore` ignores `.devcontainer/`,** which is why there is no container. It also lacks the companions' explanatory comments and the `*.egg-info/` rule the editable install needs. |
 | **C9** | **Typos throughout the client-facing prose:** `proceedires`, `Buils`, `Exctract`, `origonal`, `iamge` (×3), `bollean`, `refleactance`, `Transofrmed`, `drop ranges` (for *crop* ranges), `smays`. Both companions did a typo pass before handoff. |
 | **C10** | **Mixed kernel metadata** across notebooks (3.12.9 / 3.11.4 / 3.11.9), including in the files being kept. The companions normalized this (their C8). |
@@ -303,21 +313,40 @@ from the A/B/C findings above.
 Added 2026-07-31 in answer to a direct owner question: *does this plan propose any
 algorithm or science change beyond the output-equivalent broadcasting change?*
 
-**The honest answer is yes — four, plus two fail-loudly items.** None touches the
-reflectance formula or the ROI statistics; they are listed here so each is approved
-or refused on its own, rather than arriving inside a refactor. **Nothing in this
-table is implemented without your go-ahead on the row.**
+**The honest answer was yes — four, plus two fail-loudly items and two flagged for
+awareness.** None touches the reflectance formula or the ROI statistics. They were
+listed so each could be approved or refused on its own rather than arriving inside a
+refactor.
+
+> **✅ ALL EIGHT APPROVED BY THE OWNER, 2026-07-31.** Every row below is authorized;
+> the resolutions in the Status column are binding and specific — implement exactly
+> what each says. **The register is now closed, and it is also the boundary:** if
+> implementing any phase would change an output *not* listed here, **stop, and add it
+> to this table for approval instead of proceeding.**
 
 | # | Change | What it actually alters | Status |
 |---|---|---|---|
-| **D1** | **§B3 — the `hsiViewer.loadROIs` fix** | Real. Today, opening an ROI `.pkl` to extend it and re-saving writes **empty** masks over the pre-existing ROIs; with the companion's fix it writes the masks it loaded. Changes the contents of ROI pickles produced by that load-extend-save path. Does **not** alter any pickle already on disk, and touches no image math. | **Needs your yes.** Recommended — it is a data-loss bug, already fixed in `upwins-hsi-preprocessing`, and nb 2 is exactly that workflow. |
-| **D2** | **§B2 — which cube gets processed** | Real, and the one place this plan could quietly change results. `fname_im_hdr = fnames.hdr[0]` and `fname_dark_hdr = fnames.dark_hdr[0]` pick the **processed cube and dark frame by position in `os.listdir` order**, which is filesystem-dependent and unsorted. Any config-driven or sorted selection can therefore open a different cube than a given machine opens today, whenever a directory holds more than one `.hdr`. | **Needs your yes, and a choice.** Recommended: an explicit config key, defaulting to `sorted(...)[0]`, printing every candidate so the choice is visible. Alternative: keep positional indexing and only add the print. |
-| **D3** | **§B9 — notebook 3's normalized-spectra figure** | Real, figure only. The mean-spectrum line is currently drawn **after** the class loop using the leaked loop variable, so only the *last* class's mean is drawn over *all* classes' spectra, under a title naming that one class. Fixed, each class's mean is drawn on its own plot (matching cell 13's intent). No saved data product changes. | **Needs your yes.** Recommended. |
+| **D1** | **§B3 — the `hsiViewer.loadROIs` fix** | Real. Today, opening an ROI `.pkl` to extend it and re-saving writes **empty** masks over the pre-existing ROIs; with the companion's fix it writes the masks it loaded. Changes the contents of ROI pickles produced by that load-extend-save path. Does **not** alter any pickle already on disk, and touches no image math. | ✅ **Approved.** Take `upwins-hsi-preprocessing`'s `src/hsiViewer/` wholesale (procedure in §0); do not hand-patch this repo's copy. Verify after copying that line ~523 stores the loaded mask. |
+| **D2** | **§B2 — which cube gets processed** | Real, and the one place this plan could quietly change results. `fname_im_hdr = fnames.hdr[0]` and `fname_dark_hdr = fnames.dark_hdr[0]` pick the **processed cube and dark frame by position in `os.listdir` order**, which is filesystem-dependent and unsorted. Any config-driven or sorted selection can therefore open a different cube than a given machine opens today, whenever a directory holds more than one `.hdr`. | ✅ **Approved — the recommended option.** Explicit config keys; when a key is left blank, fall back to `sorted(candidates)[0]` and **print every candidate** with the chosen one marked. See the D2 implementation note below — the `.png` default shifts too, and `fname_hres_jpg` is dead. |
+| **D3** | **§B9 — notebook 3's normalized-spectra figure** | Real, figure only. The mean-spectrum line is currently drawn **after** the class loop using the leaked loop variable, so only the *last* class's mean is drawn over *all* classes' spectra, under a title naming that one class. Fixed, each class's mean is drawn on its own plot (matching cell 13's intent). No saved data product changes. | ✅ **Approved.** Move the `plt.plot(means[name]…)`, `plt.title(...)` and grid calls inside the `for name in roi_names:` loop, mirroring cell 13's structure exactly. Values plotted are unchanged — only which of them are drawn, and on which axes. |
 | **D4** | **§B7 — the `_ref` filename** | Filename only: `<name>_ref` → `<name>_ref.img`. Pixel values bit-identical. Anything outside these repos referencing the old extension-less name would need updating. | ✅ **Already approved** (§6a, decision 3). |
-| **D5** | **§B5 — crop / white-reference geometry asserts** | Fail-loudly, not a value change. A run that is correct today produces identical numbers. A crop that today yields a **silently wrong** calibration (white-reference rows outside the crop, panel not spanning the full width) would now stop with an error naming the config key. | **Needs your yes.** Same class as the companions' "fail loudly" phase. Recommended. |
+| **D5** | **§B5 — crop / white-reference geometry asserts** | Fail-loudly, not a value change. A run that is correct today produces identical numbers. A crop that today yields a **silently wrong** calibration (white-reference rows outside the crop, panel not spanning the full width) would now stop with an error naming the config key. | ✅ **Approved.** Raise, do not warn, and name the offending `config.yaml` key in the message — the companions' `image`/`image_hdr` mismatch-assert pattern. Checks: crop bounds within the raw cube; `white_ref_rows` within the **cropped** row range; `white_ref_rows[0] < white_ref_rows[1]`. |
 | **D6** | **Non-finite output warning** (§6d) | Fail-loudly, not a value change. Counts and reports `inf`/`NaN` pixels after conversion; substitutes nothing, clips nothing. | ✅ Covered by §6a decision 2 as the one value-free addition. |
-| **D7** | **§C1 — pinning `requirements.txt`** | Environment, not code. Pinning does not change any algorithm, but it fixes the numpy/scikit-learn/spectral versions. **I cannot verify which versions the existing results were produced with** — the notebooks record only Python 3.12.9 (nb 1–3). Pinned versions will match what the *new* repo was validated against, which may not be what produced any archived output. | **Flagged.** Both companions pin, and the alternative (unpinned) is worse. Say if you have the original environment's versions. |
-| **D8** | **§A5 — deleting the duplicate notebook 1** | No computation changes. But it is the only record of a **second collection's** tuning (`crop_rows = [1,1100]`, `white_ref_rows = [0,300]`). Those values survive as a commented example in `config.yaml`, not as a runnable notebook. | **Flagged.** Say if that second parameter set should instead become a second config profile. |
+| **D7** | **§C1 — pinning `requirements.txt`** | Environment, not code. Pinning does not change any algorithm, but it fixes the numpy/scikit-learn/spectral versions. **The versions that produced any existing results are unknown** — the notebooks record only Python 3.12.9 (nb 1–3). | ✅ **Approved: pin.** Match the companions' pins where the package is shared (`numpy==1.26.4`, `scikit-learn==1.5.1`, `pandas==2.2.2`, `spectral==0.23.1`, `matplotlib==3.9.2`, `PyYAML==6.0.2`, `PyQt5==5.15.11`, `PyQt5-sip==12.15.0`, `pyqtgraph==0.13.7`), plus `Pillow` for `mpimg.imread`. Record in the phase-8 audit doc that the original environment's versions could not be determined. |
+| **D8** | **§A5 — deleting the duplicate notebook 1** | No computation changes. But it is the only record of a **second collection's** tuning (`crop_rows = [1,1100]`, `white_ref_rows = [0,300]`). | ✅ **Approved: delete the notebook, preserve the values.** Carry both parameter sets into `config.yaml` as a commented second-collection example, verbatim, labelled as such. Note in the phase-8 audit doc that the second set remains recoverable from `research_UPWINS_Microscene` history at `6032500`. |
+
+**D2 implementation note — the three selections in nb 1 cell 8, resolved individually.**
+They are not equivalent, and only one affects the science:
+
+| Today | Used by | Resolution |
+|---|---|---|
+| `fname_im_hdr = fnames.hdr[0]` | **the processed cube** (cell 14) | Config key `raw_image` / `raw_image_hdr` (the decision-3 pair). Blank ⇒ `sorted(...)[0]`, candidates printed. **This is the one that can change results**, and only when a directory holds more than one `.hdr`. |
+| `fname_dark_hdr = fnames.dark_hdr[0]` | **the dark frame** (cell 14) | Config key `dark_image` / `dark_image_hdr`, same blank-⇒-sorted rule. Same caveat. |
+| `fname_png = fnames.png[1]` | the crop-preview figure only (cell 11) | Config key, blank ⇒ `sorted(...)[0]`. **Note the default shifts from positional index `1` to `sorted()[0]`**, so the preview may show a different PNG. Figure only — it never reaches the conversion. |
+| `fname_hres_jpg = fnames.jpg[0]` | **nothing** — verified dead | Drop the line and the `.jpg` search with it. No output effect. |
+
+Keep the `'None'` sentinel out of the rewrite: a missing file should raise naming the
+directory that was searched, not propagate the string `'None'` into an `open()` call.
 
 **Cosmetic, no data effect** — listed only so they are not mistaken for science: §A4
 (notebook 2's plot title stops raising `NameError`), §B6 (the viewer cell inspects the
@@ -403,7 +432,7 @@ possible; phases 1–3 are the ones the later ones depend on.
 | **2** | **Packaging** | `src/upwins_microscene/__init__.py`, the `REPO_ROOT` walk-up in all three notebooks, `import microscene_functions` → `from upwins_microscene import display`. `from hsiViewer import …` **unchanged** (§0). Closes **C2**. First point the repo actually runs — verification recipe (§7) runs here. | 1 |
 | **3** | **Config** | `config.yaml` with paths, crop bounds, white-reference bounds, stretch and RGB band targets. Delete the five red-HTML cells and the `<<<===>>>` banners; delete the duplicate notebook 1 (its literals become a commented second-collection example). Closes **A1, A2, A5**. | 2 |
 | **4** | **Extract support code** | `file_search.py`, `display.py`, `reflectance.py`, `roi_stats.py`. Fixes **B1, B2, B8, B10** on the way; conversion vectorized (behavior-identical). | 3 |
-| **5** | **Correctness** | **B3** (viewer fix — arrives free from phase 1 if the companion's copy is used; verify), **B5** geometry guards, **B6** viewer array, **B9** plot loop, **A4** `fname` NameError, **A3** delete notebook 3's WIP metrics section, **B7** `.img` + config pair + stem assert. Every row here that alters an output is registered in **§D** and needs its go-ahead (D1, D3, D5) — B4 excepted. **B4 is not in this phase** — the vectorization lands in phase 4 as a behavior-identical extraction (§6d), and nothing else about the formula changes. | 4 |
+| **5** | **Correctness** | **B3** (viewer fix — arrives free from phase 1 if the companion's copy is used; verify), **B5** geometry guards, **B6** viewer array, **B9** plot loop, **A4** `fname` NameError, **A3** delete notebook 3's WIP metrics section, **B7** `.img` + config pair + stem assert. Every row here that alters an output is registered and approved in **§D** (D1, D3, D5) — implement each to its stated resolution. **B4 is not in this phase** — the vectorization lands in phase 4 as a behavior-identical extraction (§6d), and nothing else about the formula changes. | 4 |
 | **6** | **Narration + docs** | Markdown cell above every code cell; replace the four screenshot-only markdown cells (nb 1: 16, 17, 23, 24) with real narration (**C5**, first half); typo pass (**C9**); `README.md`, `docs/data.md`, `docs/recording_runbook.md`. Closes **A6**. | 5 |
 | **7** | **Hygiene** | Strip committed cell outputs (**C5**, second half), normalize kernelspec (**C10**), trim import blocks (**C6**), fix headings (**C11**), decide on the three unused viewer modules (**C3**, second half — the companion's still-open C4). | 6 |
 | **8** | **Audit doc** | An `AUDIT_HANDOFF.md`-equivalent recording what shipped, what was declined, what was verified and what could not be, and the open owner confirmations — including **C7** (the `LICENSE` line, §6b) and the §6c defaults actually taken. | 7 |
