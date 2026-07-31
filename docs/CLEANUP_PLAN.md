@@ -5,13 +5,13 @@
 > (`main`); reviewed and approved the same day.
 >
 > **✅ APPROVED AND FINAL — 2026-07-31. This document is cleared for implementation.**
-> Nothing has been built yet; the target repo is still empty.
 >
 > - **§6a decisions 1–4 answered** — 1 nothing ships · 2 vectorize only and flag
 >   (defined precisely in **§6d**) · 3 `.img` plus the `image`/`image_hdr` pair
 >   convention · 4 delete notebook 3's WIP metrics section.
 > - **§6b** — the `LICENSE` copyright line is flagged and left unchanged.
-> - **§6c** — the six remaining items proceed on their stated defaults.
+> - **§6c** — all six defaults **explicitly confirmed by the owner**, package name
+>   `upwins_microscene` included. No open questions remain in this document.
 > - **§D — all eight rows approved.** Every change that alters an output is
 >   authorized, with a binding per-row resolution. **§D is also the boundary: any
 >   output change not listed there is out of scope and must be brought back for
@@ -200,9 +200,9 @@ class at that exact path. Renaming here silently breaks both.
   them freely — that is what §1 is for. If you find a defect in either, add it to §8
   as a note; do not act on it.
 - One commit per phase (§5). Phases 5–7 are independently approvable.
-- The decisions in §6a and §6b are **settled**; §6c items proceed on their defaults.
-  Do not re-litigate any of them, and do not invent a replacement for the `LICENSE`
-  copyright line.
+- **Every decision in §6a, §6b and §6c is settled, and §D is fully approved. There is
+  nothing left to ask before starting.** Do not re-litigate any of them, and do not
+  invent a replacement for the `LICENSE` copyright line.
 - **§D is the gate on anything that changes a number, a figure, a filename, or which
   file is opened. All eight rows are approved** — implement each exactly as its Status
   column states, no more. **If implementing a phase would change an output not listed
@@ -435,7 +435,7 @@ possible; phases 1–3 are the ones the later ones depend on.
 | **5** | **Correctness** | **B3** (viewer fix — arrives free from phase 1 if the companion's copy is used; verify), **B5** geometry guards, **B6** viewer array, **B9** plot loop, **A4** `fname` NameError, **A3** delete notebook 3's WIP metrics section, **B7** `.img` + config pair + stem assert. Every row here that alters an output is registered and approved in **§D** (D1, D3, D5) — implement each to its stated resolution. **B4 is not in this phase** — the vectorization lands in phase 4 as a behavior-identical extraction (§6d), and nothing else about the formula changes. | 4 |
 | **6** | **Narration + docs** | Markdown cell above every code cell; replace the four screenshot-only markdown cells (nb 1: 16, 17, 23, 24) with real narration (**C5**, first half); typo pass (**C9**); `README.md`, `docs/data.md`, `docs/recording_runbook.md`. Closes **A6**. | 5 |
 | **7** | **Hygiene** | Strip committed cell outputs (**C5**, second half), normalize kernelspec (**C10**), trim import blocks (**C6**), fix headings (**C11**), decide on the three unused viewer modules (**C3**, second half — the companion's still-open C4). | 6 |
-| **8** | **Audit doc** | An `AUDIT_HANDOFF.md`-equivalent recording what shipped, what was declined, what was verified and what could not be, and the open owner confirmations — including **C7** (the `LICENSE` line, §6b) and the §6c defaults actually taken. | 7 |
+| **8** | **Audit doc** | An `AUDIT_HANDOFF.md`-equivalent recording what shipped, what was declined, what was verified and what could not be. The only item still needing an owner answer at the end is **C7** (the `LICENSE` line, §6b), deliberately left open; everything else in §6 and §D was decided before implementation started. | 7 |
 
 Phases 5–7 are independently approvable; you can take any subset.
 
@@ -458,7 +458,7 @@ letting it disappear.
 > these 1, 3, 4, 5 inside an eleven-item list; that numbering is dead.)
 >
 > §6a holds the four answered decisions, §6b the one flagged-and-left-alone item, §6c
-> the remaining six that proceed on their stated defaults. This mirrors
+> the six defaults, **all of which the owner has now explicitly confirmed**. This mirrors
 > `AUDIT_HANDOFF.md` §6a/6b/6c in the companion repo. §6d defines decision 2's
 > "vectorize only" precisely.
 
@@ -510,35 +510,37 @@ harmonized. This is deliberately the same posture as the companions' **P2-9 / D*
 (grant number / license / companion-repo name awaiting one explicit owner "yes"), and
 one answer would close all three repos at once. **Do not invent a replacement line.**
 
-### 6c. Stated defaults — a session can proceed, but confirm if you disagree
+### 6c. Stated defaults — ✅ all six confirmed by the owner
 
-None of these was raised, so each proceeds as written. All are cheap to reverse *if
-caught early*; item 4 (package name) is the one that gets expensive after the fact.
+> **Confirmed 2026-07-31.** These were proposed as defaults and are now explicit owner
+> decisions, **including item 4's package name `upwins_microscene`**, which was called
+> out separately because it is baked in from phase 0 and expensive to change later.
+> Implement as written; do not re-open.
 
-1. **`hsiViewer` (§C3).** It will then live in three repos. *Default: vendor a synced
-   copy* (what the other two do), with a comment in each naming
-   `upwins-hsi-preprocessing` as the source of truth. Alternative: extract a fourth
-   shared package — cleaner, but a fourth thing for the client to install.
+1. **`hsiViewer` (§C3).** It will then live in three repos. ✅ **Confirmed: vendor a
+   synced copy** — what the other two do — with a comment in this repo's copy naming
+   `upwins-hsi-preprocessing` as the source of truth. Extracting a fourth shared
+   package was considered and declined: cleaner, but a fourth thing for the client to
+   install.
 
 2. **A batch conversion script?** `upwins-hsi-preprocessing` ships
    `scripts/batch_convert_reflectance.py`. Microscene conversion needs a per-image
    crop and white-reference row range, so a batch script would need a per-image table
-   in the config. *Default: no batch script* unless you convert microscene collections
-   in bulk.
+   in the config. ✅ **Confirmed: no batch script.**
 
-3. **Tests / CI.** Declined in both companions, on the record. *Default: same* — no
-   test files, no `.github/workflows`. The checks in §7 cover the same ground without
+3. **Tests / CI.** Declined in both companions, on the record. ✅ **Confirmed: same** — no test files, no `.github/workflows`. The checks in §7 cover the same ground without
    adding files to the repo.
 
 4. **Package name `upwins_microscene`** (mirroring `upwins_hsi`, `upwins_veg`), and
-   the **recording runbook as "Video 3"** of the series. *Default: both yes.* Say now
-   if you want a different package name — renaming later touches every notebook.
+   the **recording runbook as "Video 3"** of the series. ✅ **Confirmed: both.** The
+   package name is fixed from phase 0 — `src/upwins_microscene/`, `pyproject.toml`'s
+   `[tool.setuptools.packages.find] where = ["src"]`, and every notebook import.
 
 5. **NSF Grant No. 2319470** in the Acknowledgment, and naming the other two repos as
-   companions. *Default: yes, matching both.* Related to §6b: the companions' **P2-9 /
+   companions. ✅ **Confirmed: yes, matching both.** Related to §6b: the companions' **P2-9 /
    D** owner confirmation of the grant number is still open there too.
 
-6. **History.** *Default: fresh history*, one "Initial commit … (client delivery)",
+6. **History.** ✅ **Confirmed: fresh history** — one "Initial commit … (client delivery)",
    exactly as `upwins-hsi-preprocessing` was created (`d0027c0`).
    `research_UPWINS_Microscene` stays as the provenance record.
 
